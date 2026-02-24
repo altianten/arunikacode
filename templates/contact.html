@@ -139,7 +139,7 @@
             <textarea id="message" name="message" rows="5"
                       class="form-input"
                       placeholder="{{ t('contact.form_message_placeholder') }}"
-                      required>{% if form_data.get('message') %}**{{ form_data.get('message') }}**{% endif %}</textarea>
+                      required>{% if form_data.get('message') %}{{ form_data.get('message') }}{% endif %}</textarea>
             <p id="err-message" class="text-xs mt-1.5 hidden" style="color:#e05555;">{{ t('contact.error_required') }}</p>
           </div>
 
