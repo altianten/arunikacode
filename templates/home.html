@@ -98,10 +98,10 @@
     <p class="text-center section-label mb-12 reveal">{{ t('home.trust_label') }}</p>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
       {% for stat, value, target, suffix in [
-        ('stats_clients',  '50+',  50,  '+'),
-        ('stats_projects', '80+',  80,  '+'),
-        ('stats_support',  '500+', 500, '+'),
-        ('stats_years',    '3+',   3,   '+')
+        ('stats_clients',  '10+',  10,  '+'),
+        ('stats_projects', '15+',  15,  '+'),
+        ('stats_satisfaction',  '98%', 98, '%'),
+        ('stats_years',    '2+',   2,   '+')
       ] %}
       <div class="reveal reveal-delay-{{ loop.index }}">
         <p class="font-display font-bold text-3xl md:text-4xl mb-1 stat-counter"
