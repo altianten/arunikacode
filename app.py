@@ -359,6 +359,16 @@ def case_study(slug):
             for s in project_raw["stats"]
         ],
         "solution_points": project_raw["solution_points"].get(lang, project_raw["solution_points"].get("en", [])) if isinstance(project_raw["solution_points"], dict) else project_raw["solution_points"],
+        "slug": slug,
+        "slug_to_key": {
+            "edutrack":         "project_1",
+            "retailbot":        "project_2",
+            "arunika-portfolio":"project_3",
+            "tingkir-lor":      "project_4",
+            "salesvision":      "project_5",
+            "studentdrop":      "project_6",
+            "marketpulse":      "project_7",
+        }.get(slug, ""),
     }
     return render_template("case_study.html", page="portfolio", project=project)
 
