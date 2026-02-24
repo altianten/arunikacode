@@ -38,22 +38,22 @@
            x-transition:enter-end="opacity-100 scale-100">
 
         <!-- Project visual -->
-        <div class="h-44 overflow-hidden relative" style="background:var(--c-surface-2);">
+        <div class="w-full overflow-hidden relative" style="background:var(--c-surface-2);">
           {% if project.key == 'project_1' %}
           <img src="{{ url_for('static', filename='img/project_1.png') }}"
-               alt="EduTrack Dashboard" class="w-full h-full object-cover object-top" loading="lazy">
+               alt="EduTrack Dashboard" class="w-full h-auto block" loading="lazy">
 
           {% elif project.key == 'project_2' %}
           <img src="{{ url_for('static', filename='img/project_2.png') }}"
-               alt="RetailBot AI Chatbot" class="w-full h-full object-cover object-top" loading="lazy">
+               alt="RetailBot AI Chatbot" class="w-full h-auto block" loading="lazy">
 
           {% elif project.key == 'project_3' %}
           <img src="{{ url_for('static', filename='img/project_3.png') }}"
-               alt="Arunika Portfolio" class="w-full h-full object-cover object-top" loading="lazy">
+               alt="Arunika Portfolio" class="w-full h-auto block" loading="lazy">
 
           {% elif project.key == 'project_4' %}
           <!-- Tingkir Lor: Village map & culture illustration -->
-          <svg viewBox="0 0 320 176" fill="none" class="w-full h-full">
+          <svg viewBox="0 0 320 176" fill="none" class="w-full h-auto block">
             <defs>
               <radialGradient id="villageGlow" cx="50%" cy="60%" r="50%">
                 <stop offset="0%" stop-color="var(--c-brand)" stop-opacity="0.15"/>
@@ -91,15 +91,15 @@
 
           {% elif project.key == 'project_5' %}
           <img src="{{ url_for('static', filename='img/project_5.png') }}"
-               alt="SalesVision Dashboard" class="w-full h-full object-cover object-top" loading="lazy">
+               alt="SalesVision Dashboard" class="w-full h-auto block" loading="lazy">
 
           {% elif project.key == 'project_6' %}
           <img src="{{ url_for('static', filename='img/project_6.png') }}"
-               alt="StudentDrop ML Model" class="w-full h-full object-cover object-top" loading="lazy">
+               alt="StudentDrop ML Model" class="w-full h-auto block" loading="lazy">
 
           {% elif project.key == 'project_7' %}
           <img src="{{ url_for('static', filename='img/project_7.png') }}"
-               alt="MarketPulse EDA" class="w-full h-full object-cover object-top" loading="lazy">
+               alt="MarketPulse EDA" class="w-full h-auto block" loading="lazy">
 
           {% endif %}
         </div>
