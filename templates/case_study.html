@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} — Arunika{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section style="background:var(--c-surface-2); border-bottom:1px solid var(--c-border);" class="py-16 md:py-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <a href="{{ url_for('portfolio') }}" class="inline-flex items-center gap-2 text-sm mb-8 reveal" style="color:var(--c-text-muted);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      {{ t('portfolio.page_title') }}
+    </a>
+    <div class="reveal">
+      <span class="badge mb-4">{{ project.category }}</span>
+      <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:var(--c-text);">{{ project.title }}</h1>
+      <p class="text-lg leading-relaxed" style="color:var(--c-text-muted);">{{ project.summary }}</p>
+    </div>
+
+    <!-- Stats row -->
+    <div class="grid grid-cols-3 gap-6 mt-10 reveal reveal-delay-1">
+      {% for stat in project.stats %}
+      <div class="card p-5 text-center" style="background:var(--c-surface);">
+        <p class="font-display text-2xl font-bold mb-1" style="color:var(--c-brand);">{{ stat.value }}</p>
+        <p class="text-xs" style="color:var(--c-text-muted);">{{ stat.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Content -->
+<section class="py-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 space-y-16">
+
+    <!-- Challenge -->
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2 class="font-display text-xl font-bold" style="color:var(--c-text);">{{ t('case.challenge') }}</h2>
+      </div>
+      <p class="text-base leading-relaxed" style="color:var(--c-text-muted);">{{ project.challenge }}</p>
+    </div>
+
+    <hr style="border-color:var(--c-border);">
+
+    <!-- Solution -->
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 class="font-display text-xl font-bold" style="color:var(--c-text);">{{ t('case.solution') }}</h2>
+      </div>
+      <p class="text-base leading-relaxed mb-6" style="color:var(--c-text-muted);">{{ project.solution }}</p>
+      <ul class="space-y-3">
+        {% for point in project.solution_points %}
+        <li class="flex items-start gap-3 text-sm" style="color:var(--c-text);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+          {{ point }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <hr style="border-color:var(--c-border);">
+
+    <!-- Tech stack -->
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2 class="font-display text-xl font-bold" style="color:var(--c-text);">{{ t('case.tech') }}</h2>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {% for tech in project.tech %}
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold" style="background:rgba(34,148,120,0.1); color:var(--c-brand); border:1px solid rgba(34,148,120,0.2);">{{ tech }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <hr style="border-color:var(--c-border);">
+
+    <!-- Result -->
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <h2 class="font-display text-xl font-bold" style="color:var(--c-text);">{{ t('case.result') }}</h2>
+      </div>
+      <p class="text-base leading-relaxed" style="color:var(--c-text-muted);">{{ project.result }}</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--c-surface-2); border-top:1px solid var(--c-border);" class="py-16 text-center">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6">
+    <h2 class="font-display text-2xl font-bold mb-3" style="color:var(--c-text);">{{ t('portfolio.cta_headline') }}</h2>
+    <p class="text-sm mb-6" style="color:var(--c-text-muted);">{{ t('home.cta_sub') }}</p>
+    <a href="{{ url_for('contact') }}" class="btn-brand inline-flex items-center gap-2 px-7 py-3.5 text-base">
+      {{ t('portfolio.cta_button') }}
+    </a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" class="scroll-smooth" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches) }" x-init="$watch('darkMode', v => localStorage.setItem('theme', v ? 'dark' : 'light'))" :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{{ t('meta.home_title') }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}{{ t('meta.home_desc') }}{% endblock %}" />
+  <meta property="og:title" content="{% block og_title %}{{ t('meta.home_title') }}{% endblock %}" />
+  <meta property="og:description" content="{% block og_desc %}{{ t('meta.home_desc') }}{% endblock %}" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5S8HFC3KNE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5S8HFC3KNE');
+  </script>
+
+  <!-- Tailwind CSS via CDN (swap for compiled build in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#f0faf7',
+              100: '#d0f0e6',
+              200: '#a1e2cc',
+              300: '#6cccaf',
+              400: '#3db394',
+              500: '#229478',  /* primary */
+              600: '#1a7560',
+              700: '#165d4d',
+              800: '#12493d',
+              900: '#0e3a30',
+            },
+            surface: {
+              light: '#f8faf9',
+              dark:  '#0d1512',
+            }
+          },
+          fontFamily: {
+            display: ['"Syne"', 'sans-serif'],
+            body:    ['"DM Sans"', 'sans-serif'],
+            mono:    ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    /* ── Custom CSS Variables ── */
+    :root {
+      --c-bg:          #f8faf9;
+      --c-surface:     #ffffff;
+      --c-surface-2:   #f0f4f2;
+      --c-border:      #d8e4de;
+      --c-text:        #0f1f1a;
+      --c-text-muted:  #4a6b5f;
+      --c-brand:       #229478;
+      --c-brand-light: #6cccaf;
+    }
+    .dark {
+      --c-bg:          #0d1512;
+      --c-surface:     #141f1b;
+      --c-surface-2:   #1a2922;
+      --c-border:      #233028;
+      --c-text:        #e8f2ee;
+      --c-text-muted:  #7aab96;
+      --c-brand:       #3db394;
+      --c-brand-light: #6cccaf;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text);
+      font-family: 'DM Sans', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .font-display { font-family: 'Syne', sans-serif; }
+
+    /* Noise texture overlay for depth */
+    .noise::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    /* Gradient mesh hero */
+    .hero-mesh {
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(34,148,120,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(108,204,175,0.10) 0%, transparent 50%),
+        var(--c-bg);
+    }
+    .dark .hero-mesh {
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(61,179,148,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(34,148,120,0.08) 0%, transparent 50%),
+        var(--c-bg);
+    }
+
+    /* Card style */
+    .card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: 1rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px -8px rgba(34,148,120,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Brand button */
+    .btn-brand {
+      background: var(--c-brand);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      border-radius: 0.625rem;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .btn-brand:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* Ghost button */
+    .btn-ghost {
+      border: 1.5px solid var(--c-border);
+      color: var(--c-text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      border-radius: 0.625rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--c-brand);
+      background: rgba(34,148,120,0.06);
+    }
+
+    /* Form inputs */
+    .form-input {
+      background: var(--c-surface-2);
+      border: 1.5px solid var(--c-border);
+      color: var(--c-text);
+      border-radius: 0.625rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.15s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--c-brand);
+      box-shadow: 0 0 0 3px rgba(34,148,120,0.12);
+    }
+    .form-input::placeholder { color: var(--c-text-muted); opacity: 0.7; }
+    .form-input.error { border-color: #e05555; }
+
+    /* Nav active */
+    .nav-link {
+      color: var(--c-text-muted);
+      font-weight: 500;
+      transition: color 0.15s;
+      position: relative;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--c-brand); }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--c-brand);
+      border-radius: 2px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--c-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--c-brand); }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(34,148,120,0.1);
+      border: 1px solid rgba(34,148,120,0.2);
+      color: var(--c-brand);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+    }
+    .dark .badge {
+      background: rgba(61,179,148,0.12);
+      border-color: rgba(61,179,148,0.25);
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-brand);
+      font-weight: 500;
+    }
+
+    /* Divider line */
+    .divider { border-color: var(--c-border); }
+
+    /* Feature check */
+    .feature-check {
+      color: var(--c-brand);
+      flex-shrink: 0;
+    }
+
+    /* ── Animations ─────────────────────────────────────── */
+
+    /* Scroll-triggered fade-up */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-delay-1 { transition-delay: 0.07s; }
+    .reveal-delay-2 { transition-delay: 0.15s; }
+    .reveal-delay-3 { transition-delay: 0.23s; }
+    .reveal-delay-4 { transition-delay: 0.31s; }
+    .reveal-delay-5 { transition-delay: 0.39s; }
+    .reveal-delay-6 { transition-delay: 0.47s; }
+
+    /* Hero entrance sequence */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .hero-badge-anim { animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
+    .hero-h1-anim    { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.18s both; }
+    .hero-sub-anim   { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.30s both; }
+    .hero-cta-anim   { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.42s both; }
+
+    /* Floating orbs */
+    @keyframes float1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%     { transform: translate(14px,-20px) scale(1.05); }
+      66%     { transform: translate(-9px,12px) scale(0.96); }
+    }
+    @keyframes float2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40%     { transform: translate(-16px,14px) scale(1.07); }
+      70%     { transform: translate(11px,-9px) scale(0.95); }
+    }
+    @keyframes float3 {
+      0%,100% { transform: translate(0,0); }
+      50%     { transform: translate(9px,-16px); }
+    }
+    .orb-1 { animation: float1 10s ease-in-out infinite; }
+    .orb-2 { animation: float2 13s ease-in-out infinite; }
+    .orb-3 { animation: float3  8s ease-in-out infinite; }
+    .orb-4 { animation: float1 16s ease-in-out infinite reverse; }
+
+    /* Pulse glow dot */
+    @keyframes pulse-glow {
+      0%,100% { box-shadow: 0 0 0 0   rgba(34,148,120,0.45); }
+      50%     { box-shadow: 0 0 0 10px rgba(34,148,120,0); }
+    }
+    .pulse-glow { animation: pulse-glow 2.8s ease-in-out infinite; }
+
+    /* Card top shimmer line on hover */
+    .card { position: relative; }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--c-brand), transparent);
+      transform: scaleX(0);
+      transition: transform 0.38s ease;
+      border-radius: 1rem 1rem 0 0;
+      z-index: 1;
+    }
+    .card:hover::before { transform: scaleX(1); }
+
+    /* Card icon bounce on hover */
+    .card-icon {
+      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .card:hover .card-icon { transform: rotate(-8deg) scale(1.15); }
+
+    /* CTA banner shimmer sweep */
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .cta-shimmer {
+      background: linear-gradient(105deg,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0.10) 50%,
+        rgba(255,255,255,0) 60%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 5s linear infinite;
+      position: absolute; inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    /* Underline draw on hover (for "Learn more" links) */
+    .link-draw {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .link-draw::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--c-brand);
+      transition: width 0.25s ease;
+      border-radius: 2px;
+    }
+    .link-draw:hover::after { width: 100%; }
+
+    /* Arrow nudge on hover */
+    .link-draw:hover .arrow-icon {
+      transform: translateX(4px);
+    }
+    .arrow-icon { transition: transform 0.2s ease; }
+
+    /* Smooth main entrance */
+    main { animation: fadeIn 0.4s ease 0.08s both; }
+    header { animation: fadeIn 0.35s ease both; }
+  </style>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────────────────── -->
+<header style="background:var(--c-surface); border-bottom:1px solid var(--c-border);" class="sticky top-0 z-50 transition-colors"
+        x-data="{ open: false }">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+
+    <!-- Logo -->
+    <a href="{{ url_for('home') }}" class="flex items-center gap-2 font-display font-bold text-xl" style="color:var(--c-text);">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <rect width="32" height="32" rx="8" fill="var(--c-brand)"/>
+        <circle cx="16" cy="18" r="5" fill="none" stroke="white" stroke-width="1.7"/>
+        <line x1="7.5" y1="18" x2="24.5" y2="18" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <line x1="16" y1="6" x2="16" y2="9" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <line x1="21.8" y1="7.8" x2="20.3" y2="10.4" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <line x1="10.2" y1="7.8" x2="11.7" y2="10.4" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <line x1="25.5" y1="12.5" x2="22.9" y2="14" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <line x1="6.5" y1="12.5" x2="9.1" y2="14" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M11 18 A5 5 0 0 0 21 18" fill="rgba(255,255,255,0.18)"/>
+      </svg>
+      Arunika
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-7 text-sm" aria-label="Main navigation">
+      <a href="{{ url_for('home') }}" class="nav-link {% if page == 'home' %}active{% endif %}">{{ t('nav.home') }}</a>
+      <a href="{{ url_for('services') }}" class="nav-link {% if page == 'services' %}active{% endif %}">{{ t('nav.services') }}</a>
+      <a href="{{ url_for('why_us') }}" class="nav-link {% if page == 'why_us' %}active{% endif %}">{{ t('nav.why_us') }}</a>
+      <a href="{{ url_for('portfolio') }}" class="nav-link {% if page == 'portfolio' %}active{% endif %}">{{ t('nav.portfolio') }}</a>
+      <a href="{{ url_for('faq') }}" class="nav-link {% if page == 'faq' %}active{% endif %}">{{ t('nav.faq') }}</a>
+      <a href="{{ url_for('contact') }}" class="nav-link {% if page == 'contact' %}active{% endif %}">{{ t('nav.contact') }}</a>
+    </nav>
+
+    <!-- Right controls -->
+    <div class="flex items-center gap-3">
+
+      <!-- Language switcher -->
+      <div class="relative" x-data="{ langOpen: false }">
+        <button @click="langOpen = !langOpen" @click.outside="langOpen = false"
+                class="flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg btn-ghost"
+                aria-label="Switch language" aria-haspopup="listbox">
+          <span>{{ lang.upper() }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" :class="{ 'rotate-180': langOpen }" class="transition-transform"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div x-show="langOpen" x-transition
+             class="absolute right-0 mt-2 w-36 rounded-xl shadow-lg py-1"
+             style="background:var(--c-surface); border:1px solid var(--c-border);">
+          {% for l in supported_langs %}
+          <a href="{{ url_for('set_lang', lang=l) }}"
+             class="flex items-center justify-between px-4 py-2 text-sm nav-link {% if l == lang %}font-semibold{% endif %}"
+             style="color:var(--c-text);">
+            {{ lang_names[l] }}
+            {% if l == lang %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check"><polyline points="20 6 9 17 4 12"/></svg>
+            {% endif %}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Dark mode toggle -->
+      <button @click="darkMode = !darkMode" class="btn-ghost p-2 rounded-lg" aria-label="Toggle dark mode">
+        <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+
+      <!-- CTA button (desktop) -->
+      <a href="{{ url_for('contact') }}" class="btn-brand hidden md:inline-flex items-center px-4 py-2 text-sm">
+        {{ t('nav.get_started') }}
+      </a>
+
+      <!-- Mobile menu toggle -->
+      <button @click="open = !open" class="btn-ghost p-2 rounded-lg md:hidden" aria-label="Menu">
+        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div x-show="open" x-transition style="background:var(--c-surface); border-top:1px solid var(--c-border);" class="md:hidden px-4 pb-4 pt-2">
+    <nav class="flex flex-col gap-1 text-sm">
+      <a href="{{ url_for('home') }}" class="nav-link py-2 {% if page == 'home' %}active{% endif %}">{{ t('nav.home') }}</a>
+      <a href="{{ url_for('services') }}" class="nav-link py-2 {% if page == 'services' %}active{% endif %}">{{ t('nav.services') }}</a>
+      <a href="{{ url_for('why_us') }}" class="nav-link py-2 {% if page == 'why_us' %}active{% endif %}">{{ t('nav.why_us') }}</a>
+      <a href="{{ url_for('portfolio') }}" class="nav-link py-2 {% if page == 'portfolio' %}active{% endif %}">{{ t('nav.portfolio') }}</a>
+      <a href="{{ url_for('faq') }}" class="nav-link py-2 {% if page == 'faq' %}active{% endif %}">{{ t('nav.faq') }}</a>
+      <a href="{{ url_for('contact') }}" class="nav-link py-2 {% if page == 'contact' %}active{% endif %}">{{ t('nav.contact') }}</a>
+      <a href="{{ url_for('contact') }}" class="btn-brand mt-2 px-4 py-2.5 text-sm text-center">{{ t('nav.get_started') }}</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── Main content ────────────────────────────────────────────────────────── -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer style="background:var(--c-surface); border-top:1px solid var(--c-border);">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <a href="{{ url_for('home') }}" class="flex items-center gap-2 font-display font-bold text-lg mb-3" style="color:var(--c-text);">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <rect width="32" height="32" rx="8" fill="var(--c-brand)"/>
+            <circle cx="16" cy="18" r="5" fill="none" stroke="white" stroke-width="1.7"/>
+            <line x1="7.5" y1="18" x2="24.5" y2="18" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            <line x1="16" y1="6" x2="16" y2="9" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            <line x1="21.8" y1="7.8" x2="20.3" y2="10.4" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            <line x1="10.2" y1="7.8" x2="11.7" y2="10.4" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            <line x1="25.5" y1="12.5" x2="22.9" y2="14" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            <line x1="6.5" y1="12.5" x2="9.1" y2="14" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            <path d="M11 18 A5 5 0 0 0 21 18" fill="rgba(255,255,255,0.18)"/>
+          </svg>
+          Arunika
+        </a>
+        <p class="text-sm leading-relaxed" style="color:var(--c-text-muted);">{{ t('footer.tagline') }}</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider mb-4" style="color:var(--c-text-muted);">{{ t('footer.links_label') }}</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{{ url_for('services') }}" class="nav-link">{{ t('nav.services') }}</a></li>
+          <li><a href="{{ url_for('why_us') }}" class="nav-link">{{ t('nav.why_us') }}</a></li>
+          <li><a href="{{ url_for('portfolio') }}" class="nav-link">{{ t('nav.portfolio') }}</a></li>
+          <li><a href="{{ url_for('faq') }}" class="nav-link">{{ t('nav.faq') }}</a></li>
+          <li><a href="{{ url_for('contact') }}" class="nav-link">{{ t('nav.contact') }}</a></li>
+        </ul>
+      </div>
+
+      <!-- Language + Legal -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider mb-4" style="color:var(--c-text-muted);">{{ t('footer.language_label') }}</p>
+        <div class="flex gap-2 mb-6">
+          {% for l in supported_langs %}
+          <a href="{{ url_for('set_lang', lang=l) }}"
+             class="text-sm px-3 py-1.5 rounded-lg {% if l == lang %}btn-brand{% else %}btn-ghost{% endif %}">
+            {{ lang_names[l] }}
+          </a>
+          {% endfor %}
+        </div>
+        <p class="text-xs font-semibold uppercase tracking-wider mb-3" style="color:var(--c-text-muted);">{{ t('footer.legal_label') }}</p>
+        <ul class="space-y-1.5 text-sm">
+          <li><a href="#" class="nav-link">{{ t('footer.privacy') }}</a></li>
+          <li><a href="#" class="nav-link">{{ t('footer.terms') }}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider my-8">
+    <p class="text-center text-xs" style="color:var(--c-text-muted);">{{ t('footer.copyright') }}</p>
+  </div>
+</footer>
+
+{% block extra_scripts %}{% endblock %}
+
+<script>
+  // ── Scroll reveal (IntersectionObserver) ──────────────────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+        revealObserver.unobserve(el.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── Animated stat counters ────────────────────────────────────────────────
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.round(easeOut(progress) * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        animateCounter(el.target);
+        counterObserver.unobserve(el.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-counter').forEach(el => counterObserver.observe(el));
+</script>
+</body>
+</html>

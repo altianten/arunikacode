@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}{{ t('meta.services_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- Page header -->
+<section style="background:var(--c-surface-2); border-bottom:1px solid var(--c-border);" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+    <p class="section-label mb-3">{{ t('nav.services') }}</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:var(--c-text);">{{ t('services.page_title') }}</h1>
+    <p class="text-lg max-w-xl mx-auto" style="color:var(--c-text-muted);">{{ t('services.page_sub') }}</p>
+  </div>
+</section>
+
+<!-- Services detail -->
+<section class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-24">
+
+    <!-- Web Development -->
+    <div id="web" class="reveal grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="badge mb-5">Web Development</div>
+        <h2 class="font-display text-3xl font-bold mb-5" style="color:var(--c-text);">{{ t('services.web_title') }}</h2>
+        <p class="text-base leading-relaxed mb-7" style="color:var(--c-text-muted);">{{ t('services.web_desc') }}</p>
+        <ul class="space-y-3 mb-8">
+          {% for i in range(1,5) %}
+          <li class="flex items-start gap-3 text-sm" style="color:var(--c-text);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ t('services.web_feature_' + i|string) }}
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="flex flex-wrap gap-3">
+          <a href="{{ url_for('web_pricing') }}" class="btn-brand inline-flex items-center gap-2 px-6 py-3 text-sm">
+            {{ t('services.web_cta') }}
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="{{ url_for('contact') }}" class="btn-ghost inline-flex items-center gap-2 px-6 py-3 text-sm">
+            {{ t('nav.contact') }}
+          </a>
+        </div>
+      </div>
+      <!-- Web Dev Photo -->
+      <div class="card overflow-hidden min-h-64 relative" style="padding:0;">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80&fit=crop"
+             alt="Web Development"
+             class="w-full h-full object-cover"
+             style="min-height:280px;"
+             loading="lazy">
+        <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(34,148,120,0.15) 0%, transparent 60%);"></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- AI Solutions -->
+    <div id="ai" class="reveal reveal-delay-1 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="md:order-2">
+        <div class="badge mb-5">AI Solutions</div>
+        <h2 class="font-display text-3xl font-bold mb-5" style="color:var(--c-text);">{{ t('services.ai_title') }}</h2>
+        <p class="text-base leading-relaxed mb-7" style="color:var(--c-text-muted);">{{ t('services.ai_desc') }}</p>
+        <ul class="space-y-3 mb-8">
+          {% for i in range(1,5) %}
+          <li class="flex items-start gap-3 text-sm" style="color:var(--c-text);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ t('services.ai_feature_' + i|string) }}
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="flex flex-wrap gap-3">
+          <a href="{{ url_for('ai_pricing') }}" class="btn-brand inline-flex items-center gap-2 px-6 py-3 text-sm">
+            {{ t('services.ai_cta') }}
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="{{ url_for('contact') }}" class="btn-ghost inline-flex items-center gap-2 px-6 py-3 text-sm">
+            {{ t('nav.contact') }}
+          </a>
+        </div>
+      </div>
+      <!-- AI Photo -->
+      <div class="card overflow-hidden min-h-64 relative md:order-1" style="padding:0;">
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80&fit=crop"
+             alt="AI Solutions"
+             class="w-full h-full object-cover"
+             style="min-height:280px;"
+             loading="lazy">
+        <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(34,148,120,0.15) 0%, transparent 60%);"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--c-surface-2); border-top:1px solid var(--c-border);" class="py-16 text-center">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <p class="text-base mb-5 reveal" style="color:var(--c-text-muted);">{{ t('services.cta_text') }}</p>
+    <a href="{{ url_for('contact') }}" class="reveal btn-brand inline-flex items-center gap-2 px-7 py-3.5 text-base">
+      {{ t('services.cta_button') }}
+    </a>
+  </div>
+</section>
+
+{% endblock %}

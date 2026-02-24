@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}{{ t('meta.portfolio_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- Page header -->
+<section style="background:var(--c-surface-2); border-bottom:1px solid var(--c-border);" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+    <p class="section-label mb-3">{{ t('nav.portfolio') }}</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:var(--c-text);">{{ t('portfolio.page_title') }}</h1>
+    <p class="text-lg max-w-xl mx-auto" style="color:var(--c-text-muted);">{{ t('portfolio.page_sub') }}</p>
+  </div>
+</section>
+
+<!-- Filter + Projects -->
+<section class="py-20 md:py-28" x-data="{ active: 'all' }">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+    <!-- Filter tabs -->
+    <div class="flex flex-wrap gap-2 mb-12 justify-center">
+      {% for tag, label_key in [('all','filter_all'),('web','filter_web'),('ai','filter_ai')] %}
+      <button @click="active = '{{ tag }}'"
+              :class="active === '{{ tag }}' ? 'btn-brand' : 'btn-ghost'"
+              class="px-5 py-2 text-sm font-medium rounded-xl transition-all">
+        {{ t('portfolio.' + label_key) }}
+      </button>
+      {% endfor %}
+    </div>
+
+    <!-- Project grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+
+      {% for project in projects %}
+      <div class="card overflow-hidden"
+           x-show="active === 'all' || active === '{{ project.tag }}'"
+           x-transition:enter="transition ease-out duration-200"
+           x-transition:enter-start="opacity-0 scale-95"
+           x-transition:enter-end="opacity-100 scale-100">
+
+        <!-- Project visual -->
+        <div class="h-44 overflow-hidden relative" style="background:var(--c-surface-2);">
+          {% if project.key == 'project_1' %}
+          <img src="{{ url_for('static', filename='img/project_1.png') }}"
+               alt="EduTrack Dashboard" class="w-full h-full object-cover object-top" loading="lazy">
+
+          {% elif project.key == 'project_2' %}
+          <img src="{{ url_for('static', filename='img/project_2.png') }}"
+               alt="RetailBot AI Chatbot" class="w-full h-full object-cover object-top" loading="lazy">
+
+          {% elif project.key == 'project_3' %}
+          <img src="{{ url_for('static', filename='img/project_3.png') }}"
+               alt="Arunika Portfolio" class="w-full h-full object-cover object-top" loading="lazy">
+
+          {% elif project.key == 'project_4' %}
+          <!-- Tingkir Lor: Village map & culture illustration -->
+          <svg viewBox="0 0 320 176" fill="none" class="w-full h-full">
+            <defs>
+              <radialGradient id="villageGlow" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" stop-color="var(--c-brand)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--c-brand)" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="320" height="176" fill="var(--c-surface-2)"/>
+            <ellipse cx="160" cy="110" rx="140" ry="70" fill="url(#villageGlow)"/>
+            <ellipse cx="60"  cy="140" rx="70" ry="40" fill="var(--c-brand)" fill-opacity="0.08"/>
+            <ellipse cx="260" cy="145" rx="80" ry="38" fill="var(--c-brand)" fill-opacity="0.06"/>
+            <rect x="136" y="90" width="48" height="50" rx="3" fill="var(--c-brand)" fill-opacity="0.25" stroke="var(--c-brand)" stroke-width="1" stroke-opacity="0.5"/>
+            <ellipse cx="160" cy="90" rx="24" ry="16" fill="var(--c-brand)" fill-opacity="0.45" stroke="var(--c-brand)" stroke-width="1" stroke-opacity="0.6"/>
+            <rect x="157" y="68" width="6" height="22" rx="2" fill="var(--c-brand)" fill-opacity="0.7"/>
+            <circle cx="160" cy="66" r="4" fill="var(--c-brand)" fill-opacity="0.9"/>
+            <rect x="145" y="102" width="10" height="14" rx="5" fill="var(--c-brand)" fill-opacity="0.5"/>
+            <rect x="165" y="102" width="10" height="14" rx="5" fill="var(--c-brand)" fill-opacity="0.5"/>
+            <rect x="62" y="112" width="36" height="28" rx="2" fill="var(--c-brand)" fill-opacity="0.15" stroke="var(--c-brand)" stroke-width="0.8" stroke-opacity="0.35"/>
+            <polygon points="62,112 80,96 98,112" fill="var(--c-brand)" fill-opacity="0.3"/>
+            <rect x="74" y="122" width="12" height="18" rx="1" fill="var(--c-brand)" fill-opacity="0.4"/>
+            <rect x="220" y="108" width="40" height="32" rx="2" fill="var(--c-brand)" fill-opacity="0.15" stroke="var(--c-brand)" stroke-width="0.8" stroke-opacity="0.35"/>
+            <polygon points="220,108 240,90 260,108" fill="var(--c-brand)" fill-opacity="0.3"/>
+            <rect x="234" y="120" width="12" height="20" rx="1" fill="var(--c-brand)" fill-opacity="0.4"/>
+            <path d="M160 140 Q140 150 110 158" stroke="var(--c-brand)" stroke-width="2" stroke-opacity="0.2" stroke-dasharray="4,3"/>
+            <path d="M160 140 Q180 150 210 158" stroke="var(--c-brand)" stroke-width="2" stroke-opacity="0.2" stroke-dasharray="4,3"/>
+            <rect x="14" y="18" width="80" height="38" rx="8" fill="var(--c-surface)" stroke="var(--c-brand)" stroke-width="1" stroke-opacity="0.4" style="filter:drop-shadow(0 3px 8px rgba(34,148,120,0.15))"/>
+            <text x="54" y="33" text-anchor="middle" font-size="7.5" fill="var(--c-brand)" fill-opacity="0.9" font-family="sans-serif">Kain Pakaian</text>
+            <text x="54" y="47" text-anchor="middle" font-size="7" fill="currentColor" fill-opacity="0.4" font-family="sans-serif">UMKM Lokal</text>
+            <rect x="224" y="18" width="82" height="38" rx="8" fill="var(--c-surface)" stroke="var(--c-brand)" stroke-width="1" stroke-opacity="0.4" style="filter:drop-shadow(0 3px 8px rgba(34,148,120,0.15))"/>
+            <text x="265" y="33" text-anchor="middle" font-size="7.5" fill="var(--c-brand)" fill-opacity="0.9" font-family="sans-serif">Wisata Alam</text>
+            <text x="265" y="47" text-anchor="middle" font-size="7" fill="currentColor" fill-opacity="0.4" font-family="sans-serif">Tingkir Lor</text>
+            <circle cx="160" cy="56" r="6" fill="var(--c-brand)" fill-opacity="0.9"/>
+            <path d="M160 62 L160 70" stroke="var(--c-brand)" stroke-width="1.5" stroke-opacity="0.7"/>
+            <circle cx="160" cy="56" r="2.5" fill="white"/>
+          </svg>
+
+          {% elif project.key == 'project_5' %}
+          <img src="{{ url_for('static', filename='img/project_5.png') }}"
+               alt="SalesVision Dashboard" class="w-full h-full object-cover object-top" loading="lazy">
+
+          {% elif project.key == 'project_6' %}
+          <img src="{{ url_for('static', filename='img/project_6.png') }}"
+               alt="StudentDrop ML Model" class="w-full h-full object-cover object-top" loading="lazy">
+
+          {% elif project.key == 'project_7' %}
+          <img src="{{ url_for('static', filename='img/project_7.png') }}"
+               alt="MarketPulse EDA" class="w-full h-full object-cover object-top" loading="lazy">
+
+          {% endif %}
+        </div>
+
+        <div class="p-7">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="badge text-xs">{{ t('portfolio.' + project.key + '_category') }}</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-2" style="color:var(--c-text);">{{ t('portfolio.' + project.key + '_title') }}</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--c-text-muted);">{{ t('portfolio.' + project.key + '_desc') }}</p>
+
+          <!-- Result badge -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-sm font-semibold" style="color:var(--c-brand);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              {{ t('portfolio.' + project.key + '_result') }}
+            </div>
+            <a href="{{ url_for('case_study', slug=project.slug) }}" class="text-sm font-semibold flex items-center gap-1" style="color:var(--c-brand);">
+              {{ t('portfolio.view_case') }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--c-surface-2); border-top:1px solid var(--c-border);" class="py-16 text-center">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <h2 class="font-display text-2xl font-bold mb-5" style="color:var(--c-text);">{{ t('portfolio.cta_headline') }}</h2>
+    <a href="{{ url_for('contact') }}" class="btn-brand inline-flex items-center gap-2 px-7 py-3.5 text-base">
+      {{ t('portfolio.cta_button') }}
+    </a>
+  </div>
+</section>
+
+{% endblock %}

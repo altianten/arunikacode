@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}{{ t('meta.faq_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- ── Page header ────────────────────────────────────────────────────────── -->
+<section style="background:var(--c-surface-2); border-bottom:1px solid var(--c-border);" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+    <p class="section-label mb-3">FAQ</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:var(--c-text);">{{ t('faq.page_title') }}</h1>
+    <p class="text-lg max-w-xl mx-auto" style="color:var(--c-text-muted);">{{ t('faq.page_sub') }}</p>
+  </div>
+</section>
+
+<!-- ── FAQ content ────────────────────────────────────────────────────────── -->
+<section class="py-20 md:py-28">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6" x-data="{ active: null }">
+
+    <!-- ── Category: General ─────────────────────────────────────────────── -->
+    <div class="reveal mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h2 class="font-display font-bold text-xl" style="color:var(--c-text);">{{ t('faq.general_label') }}</h2>
+      </div>
+
+      <div class="space-y-3">
+        {% for i in range(1, 6) %}
+        {% set id = 'gen_' + i|string %}
+        <div class="card overflow-hidden reveal reveal-delay-{{ i }}"
+             x-data="{ open: false }">
+          <button @click="open = !open"
+                  class="w-full flex items-center justify-between gap-4 p-5 text-left"
+                  :aria-expanded="open">
+            <span class="font-medium text-sm leading-snug pr-2" style="color:var(--c-text);">{{ t('faq.q_general_' + i|string) }}</span>
+            <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200"
+                  :class="open ? 'rotate-45' : ''"
+                  style="background:rgba(34,148,120,0.1);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div x-show="open"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-2"
+               x-transition:enter-end="opacity-100 translate-y-0"
+               x-transition:leave="transition ease-in duration-150"
+               x-transition:leave-start="opacity-100 translate-y-0"
+               x-transition:leave-end="opacity-0 -translate-y-2">
+            <div class="px-5 pb-5 pt-1">
+              <div class="h-px mb-4" style="background:var(--c-border);"></div>
+              <p class="text-sm leading-relaxed" style="color:var(--c-text-muted);">{{ t('faq.a_general_' + i|string) }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ── Category: Web Development ─────────────────────────────────────── -->
+    <div class="reveal mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h2 class="font-display font-bold text-xl" style="color:var(--c-text);">{{ t('faq.web_label') }}</h2>
+      </div>
+
+      <div class="space-y-3">
+        {% for i in range(1, 6) %}
+        <div class="card overflow-hidden reveal reveal-delay-{{ i }}"
+             x-data="{ open: false }">
+          <button @click="open = !open"
+                  class="w-full flex items-center justify-between gap-4 p-5 text-left"
+                  :aria-expanded="open">
+            <span class="font-medium text-sm leading-snug pr-2" style="color:var(--c-text);">{{ t('faq.q_web_' + i|string) }}</span>
+            <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200"
+                  :class="open ? 'rotate-45' : ''"
+                  style="background:rgba(34,148,120,0.1);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div x-show="open"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-2"
+               x-transition:enter-end="opacity-100 translate-y-0"
+               x-transition:leave="transition ease-in duration-150"
+               x-transition:leave-start="opacity-100 translate-y-0"
+               x-transition:leave-end="opacity-0 -translate-y-2">
+            <div class="px-5 pb-5 pt-1">
+              <div class="h-px mb-4" style="background:var(--c-border);"></div>
+              <p class="text-sm leading-relaxed" style="color:var(--c-text-muted);">{{ t('faq.a_web_' + i|string) }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ── Category: AI Solutions ─────────────────────────────────────────── -->
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-check"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h2 class="font-display font-bold text-xl" style="color:var(--c-text);">{{ t('faq.ai_label') }}</h2>
+      </div>
+
+      <div class="space-y-3">
+        {% for i in range(1, 6) %}
+        <div class="card overflow-hidden reveal reveal-delay-{{ i }}"
+             x-data="{ open: false }">
+          <button @click="open = !open"
+                  class="w-full flex items-center justify-between gap-4 p-5 text-left"
+                  :aria-expanded="open">
+            <span class="font-medium text-sm leading-snug pr-2" style="color:var(--c-text);">{{ t('faq.q_ai_' + i|string) }}</span>
+            <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200"
+                  :class="open ? 'rotate-45' : ''"
+                  style="background:rgba(34,148,120,0.1);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </button>
+          <div x-show="open"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-2"
+               x-transition:enter-end="opacity-100 translate-y-0"
+               x-transition:leave="transition ease-in duration-150"
+               x-transition:leave-start="opacity-100 translate-y-0"
+               x-transition:leave-end="opacity-0 -translate-y-2">
+            <div class="px-5 pb-5 pt-1">
+              <div class="h-px mb-4" style="background:var(--c-border);"></div>
+              <p class="text-sm leading-relaxed" style="color:var(--c-text-muted);">{{ t('faq.a_ai_' + i|string) }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────────────────── -->
+<section style="background:var(--c-surface-2); border-top:1px solid var(--c-border);" class="py-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="rounded-2xl p-10 md:p-14 text-center relative overflow-hidden noise reveal" style="background:var(--c-brand);">
+      <div class="cta-shimmer"></div>
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-3 relative z-10">{{ t('faq.cta_headline') }}</h2>
+      <p class="text-white opacity-80 text-sm mb-7 max-w-md mx-auto relative z-10">{{ t('faq.cta_sub') }}</p>
+      <a href="{{ url_for('contact') }}" class="inline-flex items-center gap-2 bg-white font-semibold text-sm px-7 py-3.5 rounded-xl hover:opacity-95 hover:scale-105 transition-all relative z-10" style="color:var(--c-brand);">
+        {{ t('faq.cta_button') }}
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

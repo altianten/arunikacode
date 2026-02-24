@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}{{ t('meta.home_title') }}{% endblock %}
+{% block meta_desc %}{{ t('meta.home_desc') }}{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<section class="hero-mesh relative overflow-hidden">
+
+  <!-- Animated background orbs -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="orb-1 absolute top-1/4 left-1/4 w-72 h-72 rounded-full" style="background:radial-gradient(circle, rgba(34,148,120,0.12), transparent 70%);"></div>
+    <div class="orb-2 absolute top-1/3 right-1/5 w-96 h-96 rounded-full" style="background:radial-gradient(circle, rgba(108,204,175,0.08), transparent 70%);"></div>
+    <div class="orb-3 absolute bottom-1/4 left-1/2 w-48 h-48 rounded-full" style="background:radial-gradient(circle, rgba(34,148,120,0.10), transparent 70%);"></div>
+    <div class="orb-4 absolute top-10 right-10 w-32 h-32 rounded-full" style="background:radial-gradient(circle, rgba(108,204,175,0.07), transparent 70%);"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-32 text-center relative z-10">
+
+    <!-- Badge -->
+    <div class="flex justify-center mb-6 hero-badge-anim">
+      <span class="badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        {{ t('home.hero_badge') }}
+      </span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-6 max-w-3xl mx-auto hero-h1-anim" style="color:var(--c-text);">
+      {{ t('home.hero_headline') }}
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed hero-sub-anim" style="color:var(--c-text-muted);">
+      {{ t('home.hero_sub') }}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center hero-cta-anim">
+      <a href="{{ url_for('contact') }}" class="btn-brand px-7 py-3.5 text-base inline-flex items-center justify-center gap-2">
+        {{ t('home.hero_cta_primary') }}
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="{{ url_for('portfolio') }}" class="btn-ghost px-7 py-3.5 text-base inline-flex items-center justify-center">
+        {{ t('home.hero_cta_secondary') }}
+      </a>
+    </div>
+
+    <!-- Decorative dots -->
+    <div class="absolute top-16 left-8 w-2.5 h-2.5 rounded-full pulse-glow" style="background:var(--c-brand); opacity:0.5;"></div>
+    <div class="absolute top-28 right-12 w-1.5 h-1.5 rounded-full opacity-25" style="background:var(--c-brand);"></div>
+    <div class="absolute bottom-16 left-1/3 w-2 h-2 rounded-full opacity-20" style="background:var(--c-brand-light);"></div>
+    <div class="absolute bottom-24 right-1/4 w-1 h-1 rounded-full opacity-20" style="background:var(--c-brand);"></div>
+  </div>
+</section>
+
+<!-- ── Services preview ───────────────────────────────────────────────────── -->
+<section class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-14 reveal">
+      <p class="section-label mb-3">{{ t('home.services_label') }}</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold mb-4" style="color:var(--c-text);">{{ t('home.services_headline') }}</h2>
+      <p class="text-base max-w-xl mx-auto" style="color:var(--c-text-muted);">{{ t('home.services_sub') }}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+      <!-- Web Dev -->
+      <div class="card p-7 relative overflow-hidden reveal reveal-delay-1">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5 card-icon" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="feature-check"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-lg mb-2" style="color:var(--c-text);">{{ t('services.web_title') }}</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--c-text-muted);">{{ t('services.web_desc') }}</p>
+        <a href="{{ url_for('web_pricing') }}" class="link-draw text-sm font-semibold mt-5" style="color:var(--c-brand);">
+          {{ t('services.web_cta') }} <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- AI Solutions -->
+      <div class="card p-7 relative overflow-hidden reveal reveal-delay-2">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5 card-icon" style="background:rgba(34,148,120,0.12);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="feature-check"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-lg mb-2" style="color:var(--c-text);">{{ t('services.ai_title') }}</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--c-text-muted);">{{ t('services.ai_desc') }}</p>
+        <a href="{{ url_for('ai_pricing') }}" class="link-draw text-sm font-semibold mt-5" style="color:var(--c-brand);">
+          {{ t('services.ai_cta') }} <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Trust strip ────────────────────────────────────────────────────────── -->
+<section style="background:var(--c-surface-2); border-top:1px solid var(--c-border); border-bottom:1px solid var(--c-border);" class="py-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <p class="text-center section-label mb-12 reveal">{{ t('home.trust_label') }}</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {% for stat, value, target, suffix in [
+        ('stats_clients',  '50+',  50,  '+'),
+        ('stats_projects', '80+',  80,  '+'),
+        ('stats_support',  '500+', 500, '+'),
+        ('stats_years',    '3+',   3,   '+')
+      ] %}
+      <div class="reveal reveal-delay-{{ loop.index }}">
+        <p class="font-display font-bold text-3xl md:text-4xl mb-1 stat-counter"
+           style="color:var(--c-brand);"
+           data-target="{{ target }}" data-suffix="{{ suffix }}">{{ value }}</p>
+        <p class="text-sm" style="color:var(--c-text-muted);">{{ t('why_us.' + stat) }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Banner ─────────────────────────────────────────────────────────── -->
+<section class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 reveal">
+    <div class="rounded-2xl p-10 md:p-14 text-center relative overflow-hidden noise" style="background:var(--c-brand);">
+      <!-- Shimmer sweep -->
+      <div class="cta-shimmer"></div>
+
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4 relative z-10">{{ t('home.cta_headline') }}</h2>
+      <p class="text-base text-white opacity-80 mb-8 max-w-md mx-auto relative z-10">{{ t('home.cta_sub') }}</p>
+      <a href="{{ url_for('contact') }}" class="inline-flex items-center gap-2 bg-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-all hover:opacity-95 hover:scale-105 relative z-10" style="color:var(--c-brand);">
+        {{ t('home.cta_button') }}
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
