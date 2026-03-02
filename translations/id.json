@@ -1,18 +1,8 @@
 {
   "lang": "id",
   "lang_name": "Bahasa Indonesia",
-  "nav": {
-    "home": "Beranda",
-    "services": "Layanan",
-    "why_us": "Mengapa Kami",
-    "portfolio": "Portofolio",
-    "faq": "FAQ",
-    "contact": "Hubungi Kami",
-    "get_started": "Mulai Sekarang"
-  },
   "home": {
     "hero_badge": "Dipercaya oleh 50+ klien",
-    "hero_headline": "Kami Membangun Produk Digital yang Benar-Benar Bekerja",
     "hero_sub": "Web development dan solusi AI — dirancang untuk mahasiswa, pelaku usaha, dan tim yang siap berkembang.",
     "hero_cta_primary": "Mulai Proyek",
     "hero_cta_secondary": "Lihat Karya Kami",
@@ -20,15 +10,9 @@
     "services_headline": "Solusi yang Langsung Memberikan Hasil",
     "services_sub": "Tanpa basa-basi. Langsung ke intinya — produk digital yang rapi, fungsional, dan berdampak.",
     "trust_label": "Mengapa banyak yang memilih kami",
-    "trust_headline": "Dapat Diandalkan, Selesai Tepat Waktu",
-    "trust_sub": "Kami bekerja dengan cara yang sederhana, transparan, dan selalu berorientasi pada hasil.",
-    "cta_headline": "Ada Proyek yang Ingin Digarap?",
-    "cta_sub": "Hubungi kami sekarang, dan kami akan merespons dalam 24 jam.",
-    "cta_button": "Mari Berdiskusi"
+    "trust_sub": "Kami bekerja dengan cara yang sederhana, transparan, dan selalu berorientasi pada hasil."
   },
   "services": {
-    "page_title": "Layanan Kami",
-    "page_sub": "Dari website hingga AI — kami memiliki keahlian dan solusi untuk mendorong proyek Anda ke depan.",
     "web_title": "Web Development",
     "web_desc": "Website yang rapi, cepat, dan scalable — dibangun dengan framework modern. Mulai dari landing page, portofolio, hingga web app — kami menghadirkan kode berkualitas yang bisa tumbuh bersama bisnis Anda.",
     "web_feature_1": "Responsif & mobile-first",
@@ -47,14 +31,13 @@
     "cta_button": "Konsultasikan dengan Kami"
   },
   "web_pricing": {
-    "page_title": "Paket Web Development",
     "page_sub": "Harga transparan, tanpa biaya tersembunyi. Pilih paket yang sesuai kebutuhan dan anggaran Anda.",
     "starting_from": "Mulai dari",
     "includes": "Yang Anda dapatkan",
     "popular": "Paling Diminati",
     "cta": "Pesan Paket Ini",
     "custom_title": "Butuh Solusi yang Lebih Spesifik?",
-    "custom_sub": "Proyek Anda unik? Ceritakan kepada kami, dan kami akan menyiapkan penawaran yang tepat sasaran.",
+    "custom_sub": "Proyek Anda unik? Ceritakan kepada kami, dan kami akan menyiapkan penawaran yang tepat.",
     "custom_cta": "Minta Penawaran Khusus",
     "pkg_portfolio_name": "Web Portofolio",
     "pkg_portfolio_price": "Rp 100.000",
@@ -97,14 +80,12 @@
     "pkg_professional_f8": "Dukungan selama 3 bulan"
   },
   "ai_pricing": {
-    "page_title": "Paket Solusi AI",
-    "page_sub": "AI yang praktis untuk masalah nyata. Harga transparan, pengerjaan cepat dan terstruktur.",
     "starting_from": "Mulai dari",
     "includes": "Yang Anda dapatkan",
     "popular": "Paling Diminati",
     "cta": "Pesan Paket Ini",
     "custom_title": "Butuh Solusi yang Lebih Kompleks?",
-    "custom_sub": "Ada kebutuhan yang lebih spesifik? Kami siap merancang solusi AI yang benar-benar sesuai dengan kebutuhan Anda.",
+    "custom_sub": "Ada kebutuhan yang lebih spesifik? Kami siap merancang solusi AI yang sesuai dengan kebutuhan Anda.",
     "custom_cta": "Minta Penawaran Khusus",
     "pkg_chatbot_name": "AI Chatbot",
     "pkg_chatbot_price": "Rp 5.000.000",
@@ -194,7 +175,6 @@
     "a_ai_5": "Ya, dengan biaya setup tambahan, kami dapat menghubungkan dashboard ke sumber data langsung seperti Google Sheets, database, atau API. Data statis berbasis unggahan file sudah termasuk dalam paket dasar."
   },
   "why_us": {
-    "page_title": "Mengapa Memilih Kami?",
     "page_sub": "Kami mungkin bukan yang terbesar, tetapi kami adalah yang paling berkomitmen terhadap hasil Anda.",
     "reason_1_title": "Komunikasi yang Jelas",
     "reason_1_desc": "Tidak ada istilah teknis yang membingungkan. Kami menjelaskan segalanya dalam bahasa yang mudah dipahami, sehingga Anda selalu tahu perkembangan proyek.",
@@ -214,9 +194,6 @@
     "stats_years": "Tahun Pengalaman"
   },
   "portfolio": {
-    "page_title": "Karya Kami",
-    "page_sub": "Beberapa proyek yang kami banggakan. Klien nyata, hasil yang nyata.",
-    "filter_all": "Semua",
     "filter_web": "Web Dev",
     "filter_ai": "AI",
     "project_1_title": "EduTrack Dashboard",
@@ -252,7 +229,6 @@
     "cta_button": "Ceritakan kepada Kami"
   },
   "contact": {
-    "page_title": "Mari Berdiskusi",
     "page_sub": "Ada proyek, pertanyaan, atau sekadar ingin berkenalan? Kami siap merespons dengan cepat.",
     "form_name": "Nama Anda",
     "form_email": "Alamat Email",
@@ -286,11 +262,6 @@
     "result":    "Hasil"
   },
   "footer": {
-    "tagline": "Menerangi perjalanan digital Anda.",
-    "links_label": "Tautan Cepat",
-    "legal_label": "Legal",
-    "privacy": "Kebijakan Privasi",
-    "terms": "Syarat & Ketentuan",
     "copyright": "© 2025 Arunika. Hak cipta dilindungi.",
     "language_label": "Bahasa"
   },
