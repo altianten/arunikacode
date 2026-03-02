@@ -480,7 +480,7 @@ def contact():
 # ── SEO routes ───────────────────────────────────────────────────────────────
 @app.route("/sitemap.xml")
 def sitemap():
-    base = os.environ.get("SITE_URL", "https://arunikacode.com").rstrip("/")
+    base = os.environ.get("SITE_URL", "https://arunikacode.my.id").rstrip("/")
     pages = [
         ("",                           "weekly",  "1.0"),
         ("/services",                  "monthly", "0.9"),
@@ -501,7 +501,7 @@ def sitemap():
 
 @app.route("/robots.txt")
 def robots():
-    base = os.environ.get("SITE_URL", "https://arunikacode.com").rstrip("/")
+    base = os.environ.get("SITE_URL", "https://arunikacode.my.id").rstrip("/")
     content = f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml"
     return Response(content, mimetype="text/plain")
 
