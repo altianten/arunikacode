@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}{{ t('meta.web_pricing_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- Page header -->
+<section style="background:var(--c-surface-2); border-bottom:1px solid var(--c-border);" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm mb-6" style="color:var(--c-text-muted);" aria-label="Breadcrumb">
+      <a href="{{ url_for('services') }}" class="hover:underline" style="color:var(--c-brand);">{{ t('nav.services') }}</a>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <span>{{ t('services.web_title') }}</span>
+    </nav>
+    <div class="text-center">
+      <div class="badge mb-4">Web Development</div>
+      <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:var(--c-text);">{{ t('web_pricing.page_title') }}</h1>
+      <p class="text-lg max-w-xl mx-auto" style="color:var(--c-text-muted);">{{ t('web_pricing.page_sub') }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing cards -->
+<section class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      {% for pkg in packages %}
+      {% set k = pkg.key %}
+      <div class="reveal reveal-delay-{{ loop.index }} relative flex flex-col rounded-2xl overflow-hidden
+        {% if pkg.popular %}ring-2{% endif %}"
+        style="background:var(--c-surface); border:1px solid {% if pkg.popular %}var(--c-brand){% else %}var(--c-border){% endif %};">
+
+        <!-- Popular badge -->
+        {% if pkg.popular %}
+        <div class="text-center py-2 text-xs font-bold tracking-wider uppercase text-white" style="background:var(--c-brand);">
+          ⭐ {{ t('web_pricing.popular') }}
+        </div>
+        {% endif %}
+
+        <div class="p-7 flex flex-col flex-1">
+          <!-- Package name & price -->
+          <div class="mb-6">
+            <h2 class="font-display font-bold text-xl mb-2" style="color:var(--c-text);">{{ t('web_pricing.' + k + '_name') }}</h2>
+            <p class="text-xs mb-4 leading-relaxed" style="color:var(--c-text-muted);">{{ t('web_pricing.' + k + '_desc') }}</p>
+            <div>
+              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--c-text-muted);">{{ t('web_pricing.starting_from') }}</p>
+              <p class="font-display font-bold text-3xl" style="color:{% if pkg.popular %}var(--c-brand){% else %}var(--c-text){% endif %};">
+                {{ t('web_pricing.' + k + '_price') }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="mb-7 flex-1">
+            <p class="text-xs font-semibold uppercase tracking-wider mb-3" style="color:var(--c-text-muted);">{{ t('web_pricing.includes') }}</p>
+            <ul class="space-y-2.5">
+              {% for f in pkg.features %}
+              <li class="flex items-start gap-2.5 text-sm" style="color:var(--c-text);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="feature-check mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                {{ t('web_pricing.' + k + '_' + f) }}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <a href="{{ url_for('contact') }}?service=web&package={{ k }}"
+             class="{% if pkg.popular %}btn-brand{% else %}btn-ghost{% endif %} text-center py-3 text-sm font-semibold rounded-xl block">
+            {{ t('web_pricing.cta') }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Custom quote banner -->
+    <div class="reveal mt-14 rounded-2xl p-10 text-center relative overflow-hidden noise" style="background:var(--c-brand);">
+      <div class="cta-shimmer"></div>
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-3 relative z-10">{{ t('web_pricing.custom_title') }}</h2>
+      <p class="text-white opacity-80 text-sm mb-7 max-w-md mx-auto relative z-10">{{ t('web_pricing.custom_sub') }}</p>
+      <a href="{{ url_for('contact') }}" class="inline-flex items-center gap-2 bg-white font-semibold text-sm px-7 py-3.5 rounded-xl hover:opacity-95 hover:scale-105 transition-all relative z-10" style="color:var(--c-brand);">
+        {{ t('web_pricing.custom_cta') }}
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
