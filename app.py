@@ -116,6 +116,7 @@ def portfolio():
         {"key": "project_5", "tag": "ai",   "slug": "salesvision"},
         {"key": "project_6", "tag": "ai",   "slug": "studentdrop"},
         {"key": "project_7", "tag": "ai",   "slug": "marketpulse"},
+        {"key": "project_8", "tag": "ai",   "slug": "rag-agent"},
     ]
     return render_template("portfolio.html", page="portfolio", projects=projects)
 
@@ -331,6 +332,50 @@ CASE_STUDIES = {
             "id": "Analisis mengungkap 3 insight: jam puncak pembelian (19–21), kategori yang menguras anggaran iklan, dan segmen pelanggan setia yang belum ditarget. Klien meningkatkan ROI 22% di kuartal berikutnya.",
         },
     },
+    "rag-agent": {
+        "title":   {"en": "Competitor Intelligence Agent", "id": "Competitor Intelligence Agent"},
+        "category":{"en": "AI / LLM & RAG",               "id": "AI / LLM & RAG"},
+        "summary": {
+            "en": "An AI-powered agent that ingests unstructured competitor documents (PDFs), extracts structured insights using LLM + RAG, stores them in a SQL database, and enables natural language querying — built with FastAPI, LangChain, ChromaDB, Gemini API, and Docker.",
+            "id": "Agen AI yang memproses dokumen kompetitor tidak terstruktur (PDF), mengekstrak insight terstruktur menggunakan LLM + RAG, menyimpannya ke database SQL, dan memungkinkan query bahasa alami — dibangun dengan FastAPI, LangChain, ChromaDB, Gemini API, dan Docker.",
+        },
+        "stats": [
+            {"value": "3",      "label": {"en": "Core AI components",  "id": "Komponen AI utama"}},
+            {"value": "129",    "label": {"en": "Pages processed",      "id": "Halaman diproses"}},
+            {"value": "Docker", "label": {"en": "Production-ready",     "id": "Siap produksi"}},
+        ],
+        "challenge": {
+            "en": "Companies dealing with large volumes of competitor research documents (PDFs, reports) struggle to extract structured insights at scale — manual review is slow, inconsistent, and impossible to query programmatically.",
+            "id": "Perusahaan yang menangani volume besar dokumen riset kompetitor kesulitan mengekstrak insight terstruktur dalam skala besar — review manual lambat, tidak konsisten, dan tidak bisa di-query secara programatik.",
+        },
+        "solution": {
+            "en": "Built a three-component AI agent system: a RAG ingestion pipeline (LangChain + ChromaDB) for semantic document retrieval, an LLM extraction agent (Gemini API + Pydantic) for structured data extraction, and a Natural Language to SQL interface for querying extracted data.",
+            "id": "Membangun sistem agen AI tiga komponen: pipeline ingestion RAG (LangChain + ChromaDB) untuk retrieval dokumen semantik, agen ekstraksi LLM (Gemini API + Pydantic) untuk ekstraksi data terstruktur, dan antarmuka Natural Language to SQL untuk query data.",
+        },
+        "solution_points": {
+            "en": [
+                "RAG pipeline: PDF ingestion → text chunking → vector embedding → ChromaDB indexing",
+                "LLM extraction agent: Gemini API reads retrieved context → extracts structured JSON → Pydantic validation",
+                "NL-to-SQL interface: natural language question → Gemini generates SQL → SQLite executes → natural language answer",
+                "FastAPI REST endpoints: /ingest, /query, /rag-query, /competitors with filter support",
+                "Full Docker + docker-compose deployment for production-ready containerization",
+                "SQL injection prevention, SELECT-only enforcement, and hallucination mitigation prompts",
+            ],
+            "id": [
+                "Pipeline RAG: ingestion PDF → chunking teks → embedding vektor → indexing ChromaDB",
+                "Agen ekstraksi LLM: Gemini API membaca konteks → mengekstrak JSON terstruktur → validasi Pydantic",
+                "Antarmuka NL-to-SQL: pertanyaan bahasa alami → Gemini generate SQL → eksekusi SQLite → jawaban bahasa alami",
+                "FastAPI REST endpoints: /ingest, /query, /rag-query, /competitors dengan filter",
+                "Deployment Docker + docker-compose untuk containerisasi siap produksi",
+                "Pencegahan SQL injection, pembatasan SELECT-only, dan prompt mitigasi halusinasi",
+            ],
+        },
+        "tech": ["Python", "FastAPI", "LangChain", "ChromaDB", "Gemini API", "Pydantic", "SQLite", "Docker", "sentence-transformers"],
+        "result": {
+            "en": "Delivered a fully containerized AI agent capable of processing 129-page competitor reports, extracting structured competitive intelligence, and answering natural language queries like 'Which games lead downloads in Indonesia?' — all via a clean REST API.",
+            "id": "Menghasilkan agen AI terkontainerisasi penuh, mampu memproses laporan 129 halaman, mengekstrak intelijen kompetitif terstruktur, dan menjawab query bahasa alami seperti 'Game apa yang memimpin download di Indonesia?' — semua via REST API.",
+        },
+    },
 }
 
 
@@ -368,6 +413,7 @@ def case_study(slug):
             "salesvision":      "project_5",
             "studentdrop":      "project_6",
             "marketpulse":      "project_7",
+            "rag-agent":        "project_8",
         }.get(slug, ""),
     }
     return render_template("case_study.html", page="portfolio", project=project)
