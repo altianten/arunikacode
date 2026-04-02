@@ -254,7 +254,7 @@
     "project_8_title": "Competitor Intelligence Agent",
     "project_8_category": "AI / LLM & RAG",
     "project_8_desc": "Agen AI yang memproses PDF kompetitor, mengekstrak insight terstruktur via LLM + RAG (LangChain, ChromaDB, Gemini API), menyimpan ke SQLite, dan menjawab query bahasa alami — dikontainerisasi penuh dengan Docker.",
-    "project_8_result": "Sistem RAG + NL-to-SQL end-to-end"
+    "project_8_result": "Sistem RAG + NL-to-SQL end-to-end",
     "view_case": "Lihat Detail",
     "cta_headline": "Ada proyek yang ingin dikerjakan?",
     "cta_button": "Ceritakan kepada Kami"
