@@ -247,6 +247,14 @@
     "project_7_category": "AI / Analisis Data",
     "project_7_desc": "Proyek exploratory data analysis untuk UMKM marketplace online — mengungkap pola pembelian, jam sibuk, dan kategori produk terlaris untuk mengarahkan strategi pemasaran mereka.",
     "project_7_result": "3 insight pertumbuhan ditemukan",
+    "project_8_title": "RAG Agent Intelijen Kompetitor",
+    "project_8_category": "AI / LLM & RAG",
+    "project_8_desc": "AI agent full-stack yang memproses dokumen PDF kompetitor tidak terstruktur, mengekstrak insight terstruktur menggunakan Gemini API + pipeline RAG ChromaDB, menyimpan ke SQLite, dan memungkinkan query bahasa alami via NL-to-SQL — dikontainerisasi penuh dengan Docker.",
+    "project_8_result": "Query bahasa alami terjawab dalam hitungan detik",
+    "project_8_title": "Competitor Intelligence Agent",
+    "project_8_category": "AI / LLM & RAG",
+    "project_8_desc": "Agen AI yang memproses PDF kompetitor, mengekstrak insight terstruktur via LLM + RAG (LangChain, ChromaDB, Gemini API), menyimpan ke SQLite, dan menjawab query bahasa alami — dikontainerisasi penuh dengan Docker.",
+    "project_8_result": "Sistem RAG + NL-to-SQL end-to-end"
     "view_case": "Lihat Detail",
     "cta_headline": "Ada proyek yang ingin dikerjakan?",
     "cta_button": "Ceritakan kepada Kami"
