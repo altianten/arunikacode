@@ -254,7 +254,7 @@
     "project_8_title": "Competitor Intelligence Agent",
     "project_8_category": "AI / LLM & RAG",
     "project_8_desc": "An AI agent that ingests competitor PDFs, extracts structured insights via LLM + RAG (LangChain, ChromaDB, Gemini API), stores to SQLite, and answers natural language queries — fully containerized with Docker.",
-    "project_8_result": "End-to-end RAG + NL-to-SQL system"
+    "project_8_result": "End-to-end RAG + NL-to-SQL system",
     "view_case": "View Case Study",
     "cta_headline": "Got a project in mind?",
     "cta_button": "Tell Us About It"
